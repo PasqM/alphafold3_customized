@@ -52,6 +52,7 @@ import haiku as hk
 import jax
 from jax import numpy as jnp
 import numpy as np
+import pickle
 
 
 _HOME_DIR = pathlib.Path(os.environ.get('HOME'))
@@ -421,6 +422,7 @@ def predict_structure(
     inference_start_time = time.time()
     rng_key = jax.random.PRNGKey(seed)
     result = model_runner.run_inference(example, rng_key)
+    pickle.dump(result, open(f'./result_{seed}.pkl', 'wb'))
     print(
         f'Running model inference with seed {seed} took'
         f' {time.time() - inference_start_time:.2f} seconds.'

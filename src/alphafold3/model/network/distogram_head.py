@@ -66,7 +66,6 @@ class DistogramHead(hk.Module):
         self.config.last_break,
         self.config.num_bins - 1,
     )
-
     bin_tops = jnp.append(breaks, breaks[-1] + (breaks[-1] - breaks[-2]))
     threshold = _CONTACT_THRESHOLD + _CONTACT_EPSILON
     is_contact_bin = 1.0 * (bin_tops <= threshold)
@@ -78,4 +77,5 @@ class DistogramHead(hk.Module):
     return {
         'bin_edges': breaks,
         'contact_probs': contact_probs,
+        'distogram': probs,
     }
